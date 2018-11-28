@@ -174,7 +174,10 @@ def opportunities(event, context):
     }
     )
     #{ [{schoolname: middle school, status: ready,  updateddate: 2018-11-20 }, {schoolname: middle 2 school, status: ready,  updateddate: 2018-11-20 } ] }
-    response = sampleoutput
+    response = {
+                 "statusCode": 200,
+                 "body": sampleoutput
+             }
     return response
 
 
@@ -212,6 +215,9 @@ def opportunitiesmatch(event, context):
     }
     )
     #{ [{schoolname: middle school, status: ready,  updateddate: 2018-11-20 }, {schoolname: middle 2 school, status: ready,  updateddate: 2018-11-20 } ] }
-    response = sampleoutput
+    response = {
+                 "statusCode": 200,
+                 "body": sampleoutput
+             }
     return response
 
