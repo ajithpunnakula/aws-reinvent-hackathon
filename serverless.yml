@@ -4,7 +4,11 @@ frameworkVersion: ">=1.2.0 <2.0.0"
 
 provider:
   name: aws
-  runtime: python2.7 # or python3.6, supported as of April 2017
+  runtime: python3.6 # or python3.6, supported as of April 2017
+  alias: python
+
+plugins:
+  - serverless-python-requirements
 
 functions:
   currentTime:
@@ -12,4 +16,10 @@ functions:
     events:
       - http:
           path: ping
+          method: get
+  list:
+    handler: handler.testdatabase
+    events:
+      - http:
+          path: test
           method: get
