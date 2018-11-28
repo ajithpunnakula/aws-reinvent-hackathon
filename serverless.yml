@@ -2,13 +2,18 @@ service: partner-backend
 
 frameworkVersion: ">=1.2.0 <2.0.0"
 
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
 provider:
   name: aws
   runtime: python3.6 # or python3.6, supported as of April 2017
   alias: python
-
-plugins:
-  - serverless-python-requirements
 
 functions:
   currentTime:
