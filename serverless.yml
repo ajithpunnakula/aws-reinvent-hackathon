@@ -28,3 +28,24 @@ functions:
       - http:
           path: test
           method: get
+
+  get_volunteer_stats:
+    handler: handler.get_volunteer_stats
+    events:
+    - http:
+        path: vstats
+        method: get
+
+  get_currentactivity_stats:
+    handler: handler.get_currentactivity_stats
+    events:
+    - http:
+        path: cstats
+        method: get
+
+  get_availableopps_stats:
+    handler: handler.get_availableopps_stats
+    events:
+    - http:
+        path: aostats
+        method: get

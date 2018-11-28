@@ -3,17 +3,16 @@ import datetime
 import psycopg2
 import os
 
-
 # rds settings
 # rds_host = os.environ['RDS_HOST']
 # name = os.environ['RDS_USERNAME']
 # password = os.environ['RDS_PASSWORD']
 # db_name = os.environ['RDS_DB_NAME']
 
-rds_host= 'gwchackathon.c48swfomgrhl.us-east-2.rds.amazonaws.com'
+rds_host = 'gwchackathon.c48swfomgrhl.us-east-2.rds.amazonaws.com'
 name = 'administrator'
 password = 'H3ll0123'
-db_name = 'test'
+db_name = 'GWCdb'
 
 conn = None
 
@@ -21,8 +20,8 @@ conn = None
 def openConnection():
     global conn
     try:
-        #print("Opening Connection")
-        if(conn is None):
+        # print("Opening Connection")
+        if (conn is None):
             conn = psycopg2.connect(
                 host=rds_host, user=name, password=password, database=db_name)
         elif (not conn.open):
@@ -31,11 +30,9 @@ def openConnection():
                 host=rds_host, user=name, password=password, database=db_name)
 
     except Exception as e:
-        print (e)
+        print(e)
         print("ERROR: Unexpected error: Could not connect to postgresql instance.")
         raise e
-
-
 
 
 def testdatabase(event, context):
@@ -44,18 +41,18 @@ def testdatabase(event, context):
         openConnection()
 
         with conn.cursor() as cur:
-             # create table
-             cur.execute('SELECT * from public.test_table')
-             print("The number of parts: ", cur.rowcount)
-             row = cur.fetchone()
-             body = {
-                 "message": "Hello, the db version is " + str(row)
-             }
+            # create table
+            cur.execute('SELECT * from public.test_table')
+            print("The number of parts: ", cur.rowcount)
+            row = cur.fetchone()
+            body = {
+                "message": "Hello, the db version is " + str(row)
+            }
 
-             response = {
-                 "statusCode": 200,
-                 "body": json.dumps(body)
-             }
+            response = {
+                "statusCode": 200,
+                "body": json.dumps(body)
+            }
     except Exception as e:
         # Error while opening connection or processing
         print(e)
@@ -64,10 +61,69 @@ def testdatabase(event, context):
         if conn is not None:
             conn.close()
 
+    return response
+
+
+def get_volunteer_stats(event, context):
+    rmid = 12
+    location = 'global'
+
+    body = {
+        'engaged': 10,
+        'interested': 24
+    }
+
+
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(body)
+    }
 
     return response
 
 
+def get_currentactivity_stats(event, context):
+    rmid = 12
+    location = 'global'
+
+    body = {
+        'items': [
+            {
+                'school': 35,
+                'alert': True
+            },
+            {
+                'library': 50,
+                'alert': False
+            }
+        ]
+    }
+
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(body)
+    }
+
+    return response
+
+
+def get_availableopps_stats(event, context):
+    rmid = 12
+    location = 'global'
+
+    body = {
+        'ready': 10,
+        'notReady1': 6,
+        'notReady2': 8
+    }
+
+
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(body)
+    }
+
+    return response
 
 
 def endpoint(event, context):
