@@ -28,3 +28,15 @@ functions:
       - http:
           path: test
           method: get
+  opportunities:
+    handler: handler.opportunities
+    events:
+    - http:
+        path: opportunities
+        method: post
+  opportunitiesmatch:
+    handler: handler.opportunitiesmatch
+    events:
+    - http:
+        path: opportunitiesmatch
+        method: post

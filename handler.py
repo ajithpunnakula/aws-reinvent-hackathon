@@ -82,3 +82,80 @@ def endpoint(event, context):
     }
 
     return response
+
+
+def opportunities(event, context):
+    try:
+        # insert test data in RDS instance
+        openConnection()
+
+        with conn.cursor() as cur:
+             # create table
+             cur.execute('SELECT * from public.test_table')
+             print("The number of parts: ", cur.rowcount)
+             row = cur.fetchone()
+             body = {
+                 "message": "Hello, the db version is " + str(row)
+             }
+
+             response = {
+                 "statusCode": 200,
+                 "body": json.dumps(body)
+             }
+    except Exception as e:
+        # Error while opening connection or processing
+        print(e)
+
+    finally:
+        if conn is not None:
+            conn.close()
+
+    sampleoutput = json.dumps({
+    'output' : [
+        {'schoolname': 'Heartschool', 'status' : 'ready',  'updateddate': '2018-11-20'},
+        {'schoolname': 'littleschool', 'status': 'ready', 'updateddate': '2018-11-26'}
+    ]
+    }
+    )
+    #{ [{schoolname: middle school, status: ready,  updateddate: 2018-11-20 }, {schoolname: middle 2 school, status: ready,  updateddate: 2018-11-20 } ] }
+    response = sampleoutput
+    return response
+
+
+def opportunitiesmatch(event, context):
+    try:
+        # insert test data in RDS instance
+        openConnection()
+
+        with conn.cursor() as cur:
+             # create table
+             cur.execute('SELECT * from public.test_table')
+             print("The number of parts: ", cur.rowcount)
+             row = cur.fetchone()
+             body = {
+                 "message": "Hello, the db version is " + str(row)
+             }
+
+             response = {
+                 "statusCode": 200,
+                 "body": json.dumps(body)
+             }
+    except Exception as e:
+        # Error while opening connection or processing
+        print(e)
+
+    finally:
+        if conn is not None:
+            conn.close()
+
+    sampleoutput = json.dumps({
+    'output' : [
+        {'schoolname': 'Heartschool', 'status' : 'ready',  'updateddate': '2018-11-20', 'numvol': 4, 'volemaillist':['1@acc.com', '2@acc.com']},
+        {'schoolname': 'littleschool', 'status': 'ready', 'updateddate': '2018-11-26', 'numvol': 1, 'volemaillist':['3@acc.com', '4@acc.com']}
+    ]
+    }
+    )
+    #{ [{schoolname: middle school, status: ready,  updateddate: 2018-11-20 }, {schoolname: middle 2 school, status: ready,  updateddate: 2018-11-20 } ] }
+    response = sampleoutput
+    return response
+
